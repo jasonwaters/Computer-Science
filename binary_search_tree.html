@@ -1,0 +1,175 @@
+<html>
+	<head>
+		<title>Binary Search Tree</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function Node(value) {
+				this.value = value;
+				this.left = null;
+				this.right = null;
+				this.parent = null;
+
+				this.setLeft = function(node) {
+					if(node != null) {
+						node.setParent(this);	
+					}
+					
+					this.left = node;
+				}
+
+				this.setRight = function(node) {
+					if(node != null) {
+						node.setParent(this);	
+					}
+					
+					this.right = node;
+				}
+
+				this.setParent = function(node) {
+					this.parent = node;
+				}
+
+				this.whichNodes = function() {
+					var result = [];
+					if(this.left != null) {
+						result.push('left');
+					}
+					if(this.right != null) {
+						result.push('right');
+					}
+					return result;
+				}
+
+				this.remove = function() {
+					var branches = this.whichNodes();
+
+					if(branches.length == 0) {
+						if(this.parent.left.value == this.value) {
+							this.parent.setLeft(null);
+						}else if(this.parent.right.value == this.value) {
+							this.parent.setRight(null);
+						}						
+					}else if(branches.length == 1) {
+						this.parent[branches[0]] = this[branches[0]];
+					}else {
+						var minNode = this.minNode();
+						this.value = minNode.value;
+						minNode.remove();
+					}
+				}
+
+				this.minNode = function() {
+					if(this.left == null) {
+						return this;
+					}else {
+						return this.left.minNode();
+					}
+				}
+
+				this.minValue = function() {
+					return this.minNode().value;
+				}
+
+				this.maxNode = function() {
+					if(this.right == null) {
+						return this;
+					}else {
+						return this.right.maxNode();
+					}
+				}
+
+				this.maxValue = function() {
+					return this.maxNode().value;
+				}
+			}
+
+			function BinarySearchTree() {
+				this.root = null;
+
+				this.insert = function(value) {
+					if(this.root == null) {
+						this.root = new Node(value);
+					}else {
+						this.insertWithNode(this.root, value);
+					}
+				}
+
+				this.insertWithNode = function(node, value) {
+					if(node.value !== value) {
+						if( value < node.value) {
+							if(node.left == null) {
+								node.setLeft( new Node(value) );
+							}else {
+								this.insertWithNode(node.left, value);
+							}
+						}else {
+							if( node.right == null) {
+								node.setRight( new Node(value) );
+							}else {
+								this.insertWithNode(node.right, value);
+							}
+						}
+					}
+				}
+
+				this.remove = function(value) {
+					var node = this.lookup(value);
+					if(node != null) {
+						return node.remove();
+					}
+					return false;
+				}
+
+				this.exists = function(value) {
+					return this.lookup(value) != null;
+				}
+
+				this.lookup = function(value) {	
+					return this.lookupWithNode(this.root, value);
+				}
+
+				this.lookupWithNode = function(node, value) {
+					if(node == null) {
+						return null;
+					}else if(node.value == value) {
+						return node;
+					}
+
+					if(value < node.value) {
+						return this.lookupWithNode(node.left, value);
+					}else {
+						return this.lookupWithNode(node.right, value);
+					}					
+				}
+
+				this.print = function() {
+
+				}
+			}
+
+			var tree = new BinarySearchTree();
+
+			tree.insert(5);
+			tree.insert(2);
+			tree.insert(-4);
+			tree.insert(3);
+			tree.insert(12);
+			tree.insert(9);
+			tree.insert(21);
+			tree.insert(19);
+			tree.insert(25);
+			
+			var v = 12;
+
+			console.log(tree.exists(v));
+			tree.remove(v);
+			console.log(tree.exists(v));
+			tree.insert(v);
+			console.log(tree.exists(v));
+			tree.remove(v);
+			console.log(tree.exists(v));
+
+		</script>
+	</body>
+</html>
