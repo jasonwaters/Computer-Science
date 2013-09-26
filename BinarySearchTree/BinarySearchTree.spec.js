@@ -136,10 +136,20 @@ describe("BinarySearchTree", function() {
 		expect(tree.exists(25)).toBeTruthy();
 	});
 
-	it('should print nodes in order', function() {
-		var nodes_in_order = tree.print();
-
+	it('should print nodes in order (left, root, right)', function() {
+		var nodes_in_order = tree.in_order_traversal(tree.root);
 		expect(nodes_in_order).toEqual([-4,2,3,5,9,12,19,21,25]);
+	});
+
+	it('should print nodes pre-order sequence (root, left, right)', function() {
+		var nodes_in_order = tree.pre_order_traversal(tree.root);
+		expect(nodes_in_order).toEqual([5,2,-4,3,12,9,21,19,25]);
+	});
+
+
+	it('should print nodes post-order sequence (left, right, root)', function() {
+		var nodes_in_order = tree.post_order_traversal(tree.root);
+		expect(nodes_in_order).toEqual([-4,3,2,9,19,25,21,12,5]);
 	});
 
 });

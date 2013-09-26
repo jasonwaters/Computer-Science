@@ -63,6 +63,7 @@ BinarySearchTree.prototype.print = function() {
 }
 
 BinarySearchTree.prototype.in_order_traversal = function(node) {
+	//left, root, right
 	var stack = [],
 		current = node,
 		done = false,
@@ -84,3 +85,82 @@ BinarySearchTree.prototype.in_order_traversal = function(node) {
 	}
 	return result;
 }
+
+
+BinarySearchTree.prototype.pre_order_traversal = function(node) {
+	//root, left, right
+	var stack = [],
+		current = node,
+		done = false,
+		result = [];
+
+	while(!done) {
+		if (current != null) {
+			result.push(current.value);
+			if(current.right != null) {
+				stack.push(current.right);	
+			}
+			current = current.left;
+		}else {
+			if(stack.length == 0) {
+				done = true;
+			}else {
+				current = stack.pop();	
+			}
+		}
+	}
+
+	return result;
+}
+
+BinarySearchTree.prototype.post_order_traversal = function(node) {
+	//left, right, root
+	var stack = [],
+		current = node,
+		prev = null,
+		result = [];
+
+	stack.push(current);
+	while(stack.length > 0) {
+		current = stack[stack.length-1];
+		if(prev == null || prev.left == current || prev.right == current) {
+			if(current.left != null) {
+				stack.push(current.left);
+			}else if(current.right != null) {
+				stack.push(current.right);
+			}
+		}else if(current.left == prev) {
+			if(current.right != null) {
+				stack.push(current.right);
+			}
+		}else {
+			result.push(current.value);
+			stack.pop();
+		}
+		prev = current;
+	}
+
+	return result;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
