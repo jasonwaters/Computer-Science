@@ -136,4 +136,10 @@ describe("BinarySearchTree", function() {
 		expect(tree.exists(25)).toBeTruthy();
 	});
 
+	it('should print nodes in order', function() {
+		var nodes_in_order = tree.print();
+
+		expect(nodes_in_order).toEqual([-4,2,3,5,9,12,19,21,25]);
+	});
+
 });

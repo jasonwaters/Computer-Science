@@ -59,5 +59,28 @@ BinarySearchTree.prototype.lookupWithNode = function(node, value) {
 }
 
 BinarySearchTree.prototype.print = function() {
+	return this.in_order_traversal(this.root);
+}
 
+BinarySearchTree.prototype.in_order_traversal = function(node) {
+	var stack = [],
+		current = node,
+		done = false,
+		result = [];
+
+	while(!done) {
+		if(current != null) {
+			stack.push(current);
+			current = current.left;
+		}else {
+			if(stack.length == 0) {
+				done = true;
+			}else {
+				current = stack.pop();
+				result.push(current.value);
+				current = current.right;
+			}
+		}
+	}
+	return result;
 }
