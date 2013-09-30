@@ -1,0 +1,36 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function formula(a, b, c) {
+				return (a + b) * c;
+			}
+
+			//currying, or partial application
+			var fifteen = formula.bind(null, 5, 10);
+
+			console.log(fifteen(2)); //30
+			console.log(fifteen(3)); //45
+			console.log(fifteen(10)); //150
+
+
+			//could use String or Array, but object gets them both
+			Object.prototype.contains = function(value) {
+				if(this instanceof Array || this instanceof String){
+					return this.indexOf(value) >= 0;	
+				}
+			}
+
+			var a = "This is a test, thanks.";
+
+			console.log(a.contains('test'));
+
+
+			var b = ['a','b','c'];
+
+			console.log(b.contains('b'));
+
+		</script>
+	</body>	
+</html>
