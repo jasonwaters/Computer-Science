@@ -1,0 +1,65 @@
+<script type="text/javascript">
+  function isPrimeNumber(n) {
+    if(n == 2 || n == 3) {
+      return true;
+    }
+
+    if(n%2 == 0 || n%3 == 0) {
+      return false;
+    }
+
+    var i=5,
+        w=2;
+
+    while(i*i <=n) {
+      if(n % i == 0) {
+        return false;
+      }
+      i+=w;
+      w = 6-w;
+    }
+
+    return true;
+  }
+
+  var primes = [];
+
+  function PrimeMover(num) { 
+    if(num < primes.length) {
+      return primes[num-1];
+    }
+
+    var start = Math.max(2, primes.length > 0 ? primes[primes.length-1]+1 : 0);
+    
+    for(var i=start;i<=10000;i++) {
+      if(isPrimeNumber(i)) {        
+          primes.push(i);
+          if(primes.length == num) {
+            return i;
+          }
+      }
+    }
+  }
+
+  
+  console.log(PrimeMover(9), "should be 23");
+  console.log(PrimeMover(100), "should be 541");
+  console.log(PrimeMover(200));
+
+  console.log(primes);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+                            
+                            
+                            
+  

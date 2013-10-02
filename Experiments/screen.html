@@ -1,0 +1,92 @@
+<html>
+	<body>
+		<button id="clicker">click me</button>
+		<ul id="results"></ul>
+		
+
+
+		<script type="text/javascript">
+			var resultsDiv = document.getElementById('results'),
+				clicker = document.getElementById('clicker');
+
+			function logToScreen(value) {
+				var li = document.createElement('li');
+				li.innerHTML = ['<li>',value, '</li>'].join('');
+				resultsDiv.appendChild(li);
+			}
+
+
+			clicker.addEventListener('click', function(evt) {
+				evt.preventDefault();
+				logToScreen('clicked!');
+			});
+
+			var myString = "This is a string";
+			var myReversedString = myString.split('').reverse().join('');
+			
+			logToScreen(myString);
+			logToScreen(myReversedString);
+
+			//less effective
+			myReversedString = "";
+
+			for(var i=myString.length-1;i>=0;i--) {
+				myReversedString+= myString[i];
+			}
+			
+			logToScreen(myReversedString);
+
+			//Fibonacci
+			//0,1,1,2,3,5,8,13,21,34,55,89,144
+			var fibCache = {};
+			function fib(n) {
+				if(fibCache[n] != null) {
+					return fibCache[n]
+				}
+
+				fibCache[n] = n < 2 ? n : fib(n-1) + fib(n-2);
+	
+				return fibCache[n];
+			}
+
+			logToScreen(fib(999));
+			logToScreen(fib(0));
+			logToScreen(fib(1));
+			logToScreen(fib(2));
+			logToScreen(fib(3));
+			logToScreen(fib(4));
+			logToScreen(fib(5));
+			logToScreen(fib(6));
+			logToScreen(fib(7));
+			logToScreen(fib(8));
+			logToScreen(fib(9));
+			logToScreen(fib(10));
+			logToScreen(fib(11));
+			logToScreen(fib(12));
+			
+
+			//odd numbers
+			for(var i=1;i<100;i++) {
+				if(i%2==1) {
+					logToScreen(i);
+				}
+			}
+
+
+			function multiTables(max) {
+				for(var i=1;i<=max;i++) {
+					var row = "";
+					for(var j=1;j<=max;j++) {
+						row += (i * j) + " ";
+					}
+					logToScreen(row);
+				}
+			}
+
+			multiTables(12);
+
+
+		</script>
+
+	</body>
+</html>
