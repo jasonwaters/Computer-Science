@@ -31,7 +31,7 @@
 
     var start = Math.max(2, primes.length > 0 ? primes[primes.length-1]+1 : 0);
     
-    for(var i=start;i<=10000;i++) {
+    for(var i=start;i<=100000;i++) {
       if(isPrimeNumber(i)) {        
           primes.push(i);
           if(primes.length == num) {
@@ -44,22 +44,12 @@
   
   console.log(PrimeMover(9), "should be 23");
   console.log(PrimeMover(100), "should be 541");
-  console.log(PrimeMover(200));
+  console.log(PrimeMover(200), "should be 1223");
+
+  console.log(PrimeMover(7904), "should be 80761");
+  console.log(PrimeMover(607), "should be 4463");
+
+  console.log(PrimeMover(1201), "should be 9739");
 
   console.log(primes);
 </script>
-
-
-
-
-
-
-
-
-
-
-
-                            
-                            
-                            
-  
