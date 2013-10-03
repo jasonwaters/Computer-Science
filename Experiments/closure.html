@@ -1,0 +1,25 @@
+<html>
+
+	<script type="text/javascript">
+		function outer(greeting) {
+			return function inner(name) {
+				return greeting + ', ' + name + '!';
+			}
+		}
+
+
+		var greet = outer('hello');
+		var goodbye = outer('peace out');
+
+
+		console.log(greet('jason'));
+		console.log(goodbye('jason'));
+
+		console.log(greet('bob'));
+		console.log(goodbye('bob'));
+
+
+
+	</script>
+
+</html>
