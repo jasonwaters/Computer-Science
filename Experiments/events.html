@@ -1,0 +1,79 @@
+<html>
+	<script type="text/javascript">
+		var Eventer = function() {
+			var events = {};
+
+			return {
+				addEvent: function(key, fn) {
+					if(!events[key]) {
+						events[key] = [];
+					}
+
+					events[key].push( fn );
+				},
+				removeEvent: function(key, fn) {
+					if(!events[key]) {
+						return false;
+					}
+
+					var index = events[key].indexOf(fn);
+
+					if(index >= 0) {
+						events[key].splice(index,1);
+						return true;
+					}
+				},
+				fireEvent: function(key) {
+					var args = arguments.length > 1 ? Array.prototype.splice.call(arguments, 1,arguments.length-1) : [];
+					var numListeners = events[key] != null ? events[key].length : 0;
+					for(var i=0;i<numListeners;i++) {
+						events[key][i].apply(null, args);
+					}
+				}
+			}
+		};
+
+
+		var eventBus = new Eventer();
+
+		var eventCallbacks = 0;
+
+		eventBus.addEvent('doSomething', function() {
+			eventCallbacks++;
+			console.log('doSomething!!', eventCallbacks);
+		});
+
+		eventBus.addEvent('doSomething', function(a,b,c) {
+			eventCallbacks++;
+			console.log(a,b,c, eventCallbacks);
+		});
+
+		var tweet = function() {
+			console.log('tweet!');
+		}
+
+		eventBus.addEvent('doSomething', tweet);
+
+		eventBus.fireEvent('doSomething');
+
+		eventBus.removeEvent('doSomething', tweet);
+
+		eventBus.fireEvent('doSomething', 'eat', 'cheese', 'now');
+
+		
+
+		function Monster() {}
+		Monster.prototype = new Eventer();
+
+		var elmo = new Monster();
+
+		elmo.addEvent('speak', function(said) {
+			console.log('elmo said: "' + said + '"');
+		});
+
+
+		elmo.fireEvent('speak', 'hello everybody!');
+		elmo.fireEvent('speak', 'Elmo loves Sesame Street!');
+
+	</script>
+</html>
