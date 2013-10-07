@@ -1,0 +1,93 @@
+<html>
+	<script type="text/javascript">
+		function line() {
+			console.log('---------------------------');
+		}
+
+		function Mammal(name) {
+			this.name = name;
+			this.numLegs = 0;
+		}
+
+		Mammal.prototype.speak = function() {
+			console.log(this.introduce() + ", " + this.hello());
+		}
+
+		Mammal.prototype.introduce = function() {
+			return '?blarb?';
+		}
+
+		Mammal.prototype.hello = function() {
+			return '?meh?';
+		}
+
+
+		Mammal.prototype.walk = function() {
+			return 'walk';
+		}
+
+		Mammal.prototype.showLegs = function() {
+			console.log('I have ' + this.numLegs + ' legs!');
+		}
+
+
+
+
+
+		function Cat(name) {
+			Mammal.apply(this, arguments);
+			this.numLegs = 4;
+		}
+		Cat.prototype = new Mammal();
+
+		Cat.prototype.introduce = function() {
+			return "I am a Cat named " + this.name;
+		}
+
+		Cat.prototype.hello = function() {
+			return "Meow!"
+		}
+
+
+		Cat.prototype.purr = function() {
+			return 'purrrrrr';
+		}
+
+
+
+
+
+
+		function Lion(name) {
+			Cat.apply(this, arguments);
+		}
+
+		Lion.prototype = new Cat();
+
+		Lion.prototype.introduce = function() {
+			return "I am a Lion named " + this.name;
+		}
+
+		Lion.prototype.hello = function() {
+			return "ROAR!!"
+		}
+
+
+
+		line();
+		var guppie = new Mammal('Gilbert');
+		guppie.speak();
+		guppie.showLegs();
+
+		line();
+		var kitty = new Cat('Jasmine');
+		kitty.speak();
+		kitty.showLegs();
+
+		line();
+		var simba = new Lion('Simba');
+		simba.speak();
+		simba.showLegs();
+
+	</script>
+</html>

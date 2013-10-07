@@ -1,0 +1,91 @@
+<html>
+	<body>
+		<button id="btnAdd">add</button>
+		<button id="btnRemove">remove</button>
+		<ul id="myList">
+			<li class="myItem">1</li>
+			<li class="myItem">2</li>
+			<li class="myItem">3</li>
+			<li class="myItem">4</li>
+			<li class="myItem">5</li>
+			<li class="myItem">6</li>
+			<li class="myItem">7</li>
+			<li class="myItem">8</li>
+			<li class="myItem">9</li>
+			<li class="myItem">10</li>
+		</ul>
+	</body>
+	<script type="text/javascript">
+		
+		//How to do private 'class' variables.
+		var myObject = (function() {
+			var theColor = null;
+
+			return {
+				'getColor': function() {
+					return theColor;
+				},
+				'setColor': function(value) {
+					theColor = value;
+				},
+				size: null
+			}
+		})()
+
+
+
+		myObject.setColor('white');
+		console.log(myObject.theColor); //undefined
+		console.log(myObject.getColor()); //white
+		myObject.size = "Large";
+		console.log(myObject.size); //Large
+
+
+		//Prototype Pattern
+		var classPattern = {
+			options: null,
+
+			init: function(options) {
+				this.options = options;
+			},
+			getOptions: function() {
+				return this.options;
+			}
+		};
+
+		function somethingSpecial(options) {
+			function F() {}
+			F.prototype = classPattern;
+
+			var f = new F();
+			f.init(options);
+			return f;
+		}
+
+		var thing = somethingSpecial({
+			'name': 'bob',
+			'age': 39
+		});
+
+		console.log(thing.getOptions());
+
+		var btnAdd = document.getElementById('btnAdd');
+		var myList = document.getElementById('myList');
+		var listItems = document.getElementsByTagName('li');
+
+		btnAdd.addEventListener('click', function(evt) {
+			var li = document.createElement('li');
+			li.innerText = myList.children.length+1;
+			myList.appendChild(li);
+		});
+
+
+		btnRemove.addEventListener('click', function(evt) {
+			if(myList.children.length > 0) {
+				myList.removeChild(myList.children[myList.children.length-1]);
+			}
+		});
+
+
+	</script>
+</html>
