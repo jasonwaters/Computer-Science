@@ -1,79 +1,34 @@
 <html>
+
+	<body>
+		<table id='magicTable'>
+			<tbody>
+				<tr data-id='1'><td>Row 1</td></tr>
+				<tr data-id='2'><td>Row 2</td></tr>
+				<tr data-id='3'><td>Row 3</td></tr>
+				<tr data-id='4'><td>Row 4</td></tr>
+				<tr data-id='5'><td>Row 5</td></tr>
+				<tr data-id='6'><td>Row 6</td></tr>
+				<tr data-id='7'><td>Row 7</td></tr>
+				<tr data-id='8'><td>Row 8</td></tr>
+				<tr data-id='9'><td>Row 9</td></tr>
+				<tr data-id='10'><td>Row 10</td></tr>
+			</tbody>
+		</table>
+	</body>
+
 	<script type="text/javascript">
-		var Eventer = function() {
-			var events = {};
-
-			return {
-				addEvent: function(key, fn) {
-					if(!events[key]) {
-						events[key] = [];
-					}
-
-					events[key].push( fn );
-				},
-				removeEvent: function(key, fn) {
-					if(!events[key]) {
-						return false;
-					}
-
-					var index = events[key].indexOf(fn);
-
-					if(index >= 0) {
-						events[key].splice(index,1);
-						return true;
-					}
-				},
-				fireEvent: function(key) {
-					var args = arguments.length > 1 ? Array.prototype.splice.call(arguments, 1,arguments.length-1) : [];
-					var numListeners = events[key] != null ? events[key].length : 0;
-					for(var i=0;i<numListeners;i++) {
-						events[key][i].apply(null, args);
-					}
-				}
+		var table = document.getElementById('magicTable');
+		table.addEventListener('click', function(evt) {
+			var element = evt.target;
+			if(element.nodeName === "TD") {
+				element = element.parentNode;
 			}
-		};
 
+			var id = element.getAttribute('data-id'),
+				text = element.innerText;
 
-		var eventBus = new Eventer();
-
-		var eventCallbacks = 0;
-
-		eventBus.addEvent('doSomething', function() {
-			eventCallbacks++;
-			console.log('doSomething!!', eventCallbacks);
+			console.log(id, text);
 		});
-
-		eventBus.addEvent('doSomething', function(a,b,c) {
-			eventCallbacks++;
-			console.log(a,b,c, eventCallbacks);
-		});
-
-		var tweet = function() {
-			console.log('tweet!');
-		}
-
-		eventBus.addEvent('doSomething', tweet);
-
-		eventBus.fireEvent('doSomething');
-
-		eventBus.removeEvent('doSomething', tweet);
-
-		eventBus.fireEvent('doSomething', 'eat', 'cheese', 'now');
-
-		
-
-		function Monster() {}
-		Monster.prototype = new Eventer();
-
-		var elmo = new Monster();
-
-		elmo.addEvent('speak', function(said) {
-			console.log('elmo said: "' + said + '"');
-		});
-
-
-		elmo.fireEvent('speak', 'hello everybody!');
-		elmo.fireEvent('speak', 'Elmo loves Sesame Street!');
-
 	</script>
 </html>
